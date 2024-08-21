@@ -1,6 +1,18 @@
 var express = require('express');
 var app = express();
 const port = 3000;
+const alunos = [
+    {
+        id: 1,
+        nome: 'Fulano',
+        idade: 27
+    },
+    {
+        id: 2,
+        nome: 'Ciclano',
+        idade: 32
+    }
+]
 
 
 app.listen(port, () => {
@@ -16,35 +28,32 @@ app.get('/aluno', (req, res) => {
     res.status(500).json({
         status: 'sucess',
         data: {
-            alunos: [
-                {
-                    id: 1,
-                    nome: 'Fulano',
-                    idade: 27
-                },
-                {
-                    id: 2,
-                    nome: 'Ciclano',
-                    idade: 32
-                }
-            ]
+            alunos : alunos,
         }
         
     });
 });
 
+
 app.get('/aluno/:id', (req, res) =>{
-    res.status(200).json({
-        status: 'sucess',
-        data: {
-            aluno: {
-                id: req.params.id,
-                nome: 'Fulano Silva',
-                idade: 27   
-            }
-        }
-    })
+    let id = parseInt(req.params.id);
+    const aluno = alunos.find((aluno) => aluno.id === id)
+    res.send(`<h3>Acessando </h3> <p> o aluno é ${aluno}</p>`)
 })
+
+
+// app.get('/aluno/:id', (req, res) =>{
+//     res.status(200).json({
+//         status: 'sucess',
+//         data: {
+//             aluno: {
+//                 id: req.params.id,
+//                 nome: 'Fulano Silva',
+//                 idade: 27   
+//             }
+//         }
+//     })
+// })
 
 app.get('*', (req, res) => {
     res.send('<h3> Essa rota não existe </h3>')
