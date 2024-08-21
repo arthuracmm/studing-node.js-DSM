@@ -33,6 +33,19 @@ app.get('/aluno', (req, res) => {
     });
 });
 
+app.get('/aluno/:id', (req, res) =>{
+    res.status(200).json({
+        status: 'sucess',
+        data: {
+            aluno: {
+                id: req.params.id,
+                nome: 'Fulano Silva',
+                idade: 27   
+            }
+        }
+    })
+})
+
 app.get('*', (req, res) => {
     res.send('<h3> Essa rota não existe </h3>')
 })
